@@ -91,11 +91,41 @@ var upperCasedCharacters = [
 getPasswordOptions();
 // Function to prompt user for password options
 function getPasswordOptions() {
+  /** 1) Length of password */
   let getPasswordLength = prompt(
-    "How many characters do you want your password to be? Note, your password should be at least 10 characters long, but no less than 64."
+    "How many characters long should the password be?"
   );
   let passwordLength = parseInt(getPasswordLength);
   console.log(passwordLength);
+
+  /** 2) Character types */
+  // a. Lowercase
+  let getLowercaseOption = prompt(
+    "Do you want your password to include lowercase characters?"
+  );
+  let lowercaseChoice = getLowercaseOption.toLowerCase();
+  console.log(`Lowercase Choice: ${lowercaseChoice}`);
+
+  // b. Uppercase
+  let getUppercaseOption = prompt(
+    "Do you want your password to include uppercase characters?"
+  );
+  let uppercaseChoice = getUppercaseOption.toLowerCase();
+  console.log(`Uppercase Choice: ${uppercaseChoice}`);
+
+  // c. Numeric
+  let getNumericOption = prompt(
+    "Do you want your password to include numbers?"
+  );
+  let numericChoice = getNumericOption;
+  console.log(`Numeric Choice: ${numericChoice}`);
+
+  // d. Special
+  let getSpecialOption = prompt(
+    "Do you want your password to include special characters ($@%&*, etc)?"
+  );
+  let specialChoice = getSpecialOption;
+  console.log(`Special Choice: ${specialChoice}`);
 }
 
 // Function for getting a random element from an array
