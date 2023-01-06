@@ -100,8 +100,10 @@ function getPasswordOptions() {
   passwordLength = parseInt(getPasswordLength);
   console.log(passwordLength);
   validatePasswordLength();
+}
 
-  /** 2) Character types */
+// Function to select character choice
+function characterChoice() {
   // a. Lowercase
   let getLowercaseOption = prompt(
     "Do you want your password to include lowercase characters?"
@@ -138,7 +140,9 @@ function validatePasswordLength() {
     getPasswordOptions();
   } else if (passwordLength > 64) {
     alert("Password should not be more than 64 characters long.");
+    getPasswordOptions();
   } else {
+    characterChoice();
   }
 }
 
