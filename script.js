@@ -89,7 +89,10 @@ let upperCasedCharacters = [
 ];
 
 let passwordLength = 0;
-let passwordArr = [];
+let lowercaseChar = 0;
+let uppercaseChar = 0;
+let numericChar = 0;
+let specialChar = 0;
 
 // Function to prompt user for password options
 function getPasswordOptions() {
@@ -109,31 +112,29 @@ function characterChoice() {
   let getLowercaseOption = confirm(
     "Select OK to confirm if your password should include lowercase characters."
   );
-  console.log(`Lowercase Choice: ${getLowercaseOption}`);
-  // let lowercaseChoice = getLowercaseOption.toLowerCase();
-  // console.log(`Lowercase Choice: ${lowercaseChoice}`);
+  lowercaseChar = getLowercaseOption;
+  console.log(`Lowercase Choice: ${lowercaseChar}`);
 
   // b. Uppercase
   let getUppercaseOption = confirm(
-    "Select OK to confirm if your password should include lowercase characters."
+    "Select OK to confirm if your password should include uppercase characters."
   );
-  // let uppercaseChoice = getUppercaseOption.toLowerCase();
-  // console.log(`Uppercase Choice: ${uppercaseChoice}`);
-  console.log(`Uppercase Choice: ${getUppercaseOption}`);
+  uppercaseChar = getUppercaseOption;
+  console.log(`Uppercase Choice: ${uppercaseChar}`);
 
   // c. Numeric
   let getNumericOption = confirm(
-    "Do you want your password to include numbers?"
+    "Select OK to confirm if your password should include numeric characters."
   );
-  let numericChoice = getNumericOption;
-  console.log(`Numeric Choice: ${numericChoice}`);
+  numericChar = getNumericOption;
+  console.log(`Numeric Choice: ${numericChar}`);
 
   // d. Special
   let getSpecialOption = confirm(
-    "Do you want your password to include special characters ($@%&*, etc)?"
+    "Select OK to confirm if your password should include special characters ($@%&*, etc)?"
   );
-  let specialChoice = getSpecialOption;
-  console.log(`Special Choice: ${specialChoice}`);
+  specialChar = getSpecialOption;
+  console.log(`Special Choice: ${specialChar}`);
 }
 
 // Function to check length of password
@@ -155,7 +156,29 @@ function getRandom(arr) {
 }
 
 // Function to generate password with user input
-function generatePassword() {}
+function generatePassword() {
+  let passwordArr = [];
+
+  if (lowercaseChar) {
+    passwordArr = passwordArr.concat(lowerCasedCharacters);
+  }
+  if (uppercaseChar) {
+    passwordArr = passwordArr.concat(lowerCasedCharacters);
+  }
+  if (numericChar) {
+    passwordArr = passwordArr.concat(numericCharacters);
+  }
+  if (specialChar) {
+    passwordArr = passwordArr.concat(specialCharacters);
+  }
+
+  let randomPassword = "";
+  for (let i = 0; i < passwordLength; i++) {
+    randomPassword = randomPassword + passwordArr[getRandom(passwordArr)];
+    console.log(randomPassword);
+  }
+  return randomPassword;
+}
 
 // Get references to the #generate element
 let generateBtn = document.querySelector("#generate");
