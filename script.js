@@ -98,6 +98,7 @@ function getPasswordOptions() {
     "How many characters long should the password be?"
   );
   passwordLength = parseInt(getPasswordLength);
+  alert(`Your password will be ${passwordLength} characters long.`);
   console.log(passwordLength);
   validatePasswordLength();
 }
@@ -105,28 +106,30 @@ function getPasswordOptions() {
 // Function to select character choice
 function characterChoice() {
   // a. Lowercase
-  let getLowercaseOption = prompt(
-    "Do you want your password to include lowercase characters?"
+  let getLowercaseOption = confirm(
+    "Select OK to confirm if your password should include lowercase characters."
   );
-  let lowercaseChoice = getLowercaseOption.toLowerCase();
-  console.log(`Lowercase Choice: ${lowercaseChoice}`);
+  console.log(`Lowercase Choice: ${getLowercaseOption}`);
+  // let lowercaseChoice = getLowercaseOption.toLowerCase();
+  // console.log(`Lowercase Choice: ${lowercaseChoice}`);
 
   // b. Uppercase
-  let getUppercaseOption = prompt(
-    "Do you want your password to include uppercase characters?"
+  let getUppercaseOption = confirm(
+    "Select OK to confirm if your password should include lowercase characters."
   );
-  let uppercaseChoice = getUppercaseOption.toLowerCase();
-  console.log(`Uppercase Choice: ${uppercaseChoice}`);
+  // let uppercaseChoice = getUppercaseOption.toLowerCase();
+  // console.log(`Uppercase Choice: ${uppercaseChoice}`);
+  console.log(`Uppercase Choice: ${getUppercaseOption}`);
 
   // c. Numeric
-  let getNumericOption = prompt(
+  let getNumericOption = confirm(
     "Do you want your password to include numbers?"
   );
   let numericChoice = getNumericOption;
   console.log(`Numeric Choice: ${numericChoice}`);
 
   // d. Special
-  let getSpecialOption = prompt(
+  let getSpecialOption = confirm(
     "Do you want your password to include special characters ($@%&*, etc)?"
   );
   let specialChoice = getSpecialOption;
