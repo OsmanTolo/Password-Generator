@@ -95,19 +95,17 @@ let numericChar = 0;
 let specialChar = 0;
 
 // Function to prompt user for password options
-function getPasswordOptions() {
-  /** 1) Length of password */
+function getPasswordLength() {
   let getPasswordLength = prompt(
     "How many characters long should the password be?"
   );
   passwordLength = parseInt(getPasswordLength);
-  alert(`Your password will be ${passwordLength} characters long.`);
   console.log(passwordLength);
   validatePasswordLength();
 }
 
 // Function to select character choice
-function characterChoice() {
+function getCharacterChoice() {
   // a. Lowercase
   let getLowercaseOption = confirm(
     "Select OK to confirm if your password should include lowercase characters."
@@ -141,12 +139,13 @@ function characterChoice() {
 function validatePasswordLength() {
   if (passwordLength < 10) {
     alert("Password should be at least 10 characters long.");
-    getPasswordOptions();
+    getPasswordLength();
   } else if (passwordLength > 64) {
     alert("Password should not be more than 64 characters long.");
-    getPasswordOptions();
+    getPasswordLength();
   } else {
-    characterChoice();
+    alert(`Your password will be ${passwordLength} characters long.`);
+    getCharacterChoice();
   }
 }
 
@@ -159,24 +158,32 @@ function getRandom(arr) {
 function generatePassword() {
   let passwordArr = [];
 
-  if (lowercaseChar) {
-    passwordArr = passwordArr.concat(lowerCasedCharacters);
-  }
-  if (uppercaseChar) {
-    passwordArr = passwordArr.concat(lowerCasedCharacters);
-  }
-  if (numericChar) {
-    passwordArr = passwordArr.concat(numericCharacters);
-  }
-  if (specialChar) {
-    passwordArr = passwordArr.concat(specialCharacters);
+  if (!lowercaseChar && !uppercaseChar && !numericChar && !specialChar) {
+    // alert("At least one character type should be selected");
+    passwordText.value = "";
+    passwordText.style.borderColor = "red";
+    passwordText.placeholder =
+      "At least one character type should be selected to generate a viable password. Please try again!";
+  } else {
+    if (lowercaseChar) {
+      passwordArr = passwordArr.concat(lowerCasedCharacters);
+    }
+    if (uppercaseChar) {
+      passwordArr = passwordArr.concat(lowerCasedCharacters);
+    }
+    if (numericChar) {
+      passwordArr = passwordArr.concat(numericCharacters);
+    }
+    if (specialChar) {
+      passwordArr = passwordArr.concat(specialCharacters);
+    }
+
+    let randomPassword = "";
+    for (let i = 0; i < passwordLength; i++) {
+      randomPassword = randomPassword + passwordArr[getRandom(passwordArr)];
+    }
   }
 
-  let randomPassword = "";
-  for (let i = 0; i < passwordLength; i++) {
-    randomPassword = randomPassword + passwordArr[getRandom(passwordArr)];
-    console.log(randomPassword);
-  }
   return randomPassword;
 }
 
@@ -184,10 +191,10 @@ function generatePassword() {
 let generateBtn = document.querySelector("#generate");
 
 // Add event listener to generate button and write password to the #password input
+let passwordText = document.querySelector("#password");
 generateBtn.addEventListener("click", function writePassword() {
-  getPasswordOptions();
+  getPasswordLength();
   let password = generatePassword();
-  let passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 });

@@ -118,6 +118,10 @@ button[disabled] {
   overflow: hidden;
 }
 
+.error {
+  border: 2px dashed hsl(360, 91%, 36%);
+}
+
 @media (max-width: 690px) {
   .btn {
     font-size: 1rem;
