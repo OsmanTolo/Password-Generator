@@ -133,6 +133,27 @@ function getCharacterChoice() {
   );
   specialChar = getSpecialOption;
   console.log(`Special Choice: ${specialChar}`);
+
+  if (!lowercaseChar && !uppercaseChar && !numericChar && !specialChar) {
+    // alert("At least one character type should be selected");
+    passwordText.value = "";
+    passwordText.style.borderColor = "red";
+    passwordText.placeholder =
+      "At least one character type should be selected to generate a viable password. Please try again!";
+
+    lowercaseChar = confirm(
+      "Select OK to confirm if your password should include lowercase characters."
+    );
+    uppercaseChar = confirm(
+      "Select OK to confirm if your password should include uppercase characters."
+    );
+    numericChar = confirm(
+      "Select OK to confirm if your password should include numeric characters."
+    );
+    specialChar = confirm(
+      "Select OK to confirm if your password should include special characters ($@%&*, etc)?"
+    );
+  }
 }
 
 // Function to check length of password
@@ -144,7 +165,7 @@ function validatePasswordLength() {
     alert("Password should not be more than 64 characters long.");
     getPasswordLength();
   } else {
-    alert(`Your password will be ${passwordLength} characters long.`);
+    // alert(`Your password will be ${passwordLength} characters long.`);
     getCharacterChoice();
   }
 }
@@ -177,13 +198,11 @@ function generatePassword() {
     if (specialChar) {
       passwordArr = passwordArr.concat(specialCharacters);
     }
-
-    let randomPassword = "";
-    for (let i = 0; i < passwordLength; i++) {
-      randomPassword = randomPassword + passwordArr[getRandom(passwordArr)];
-    }
   }
-
+  let randomPassword = "";
+  for (let i = 0; i < passwordLength; i++) {
+    randomPassword = randomPassword + passwordArr[getRandom(passwordArr)];
+  }
   return randomPassword;
 }
 
@@ -192,9 +211,28 @@ let generateBtn = document.querySelector("#generate");
 
 // Add event listener to generate button and write password to the #password input
 let passwordText = document.querySelector("#password");
+let timerEl = document.getElementById("countdown");
 generateBtn.addEventListener("click", function writePassword() {
   getPasswordLength();
   let password = generatePassword();
-
   passwordText.value = password;
+
+  /** Countdown to clear password after 10 seconds */
+  let timeLeft = 10;
+  let timeInterval = setInterval(function () {
+    // Subtract from time - countdown
+    timeLeft--;
+
+    // Display the content
+    timerEl.textContent = `Your password will disappear in ${timeLeft} seconds`;
+
+    // What happens when the countdown is at 0
+    if (timeLeft === 0) {
+      // End the interval
+      clearInterval(timeInterval);
+      // Empty the textfield
+      timerEl.textContent = "";
+      passwordText.value = "";
+    }
+  }, 1000);
 });
